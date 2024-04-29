@@ -1,40 +1,43 @@
-// Déclaration du tableau contenant la liste des mots proposés à l'utilisateur
-const listeMots = ['Cachalot', 'Pétunia', 'Serviette']
-const listePhrases = [ "Pas de panique !", "La vie, l’univers et le reste", "Merci pour le poisson"]
 
-let score = 0
-
-let choix = prompt("Choisissez les 'Mots' ou les 'Phrases'.")
-
-// On demande de chosir une option , tant que ce n'est pas le cas on recommence
-while (choix !== "Mots" && choix !== "Phrases" ) {
-    choix = prompt("Choisissez les 'Mots' ou les 'Phrases'.");
+function afficherResultat (score, nbMotsProposes){
+    console.log("Votre score est de " + score + " sur " + nbMotsProposes);
 }
 
-// Une fois sortie de la boucle while
-// Lancement du jeu avec la liste de mots sinon la liste de phrases
-    if (choix === "Mots") {
-        for (let i = 0; i < listeMots.length; i++) {
-            let motUtilisateur = prompt('Entrez le mot : ' + listeMots[i])
-            if (motUtilisateur === listeMots[i] ) {
-                score++
-            }
-        }
-        console.log("Votre score est de " + score + " sur 3")
-    } else {
-        for (let i = 0; i < listePhrases.length; i++) {
-            let phraseUtilisateur = prompt('Entrez le mot : ' + listePhrases[i])
-            if (phraseUtilisateur === listePhrases[i] ) {
-                score++
-            }
-        }
-        console.log("Votre score est de " + score + " sur 3")
+function choisirPhrasesOuMots (){
+    // On demande de chosir une option , tant que ce n'est pas le cas on recommence
+    let choix = prompt("Choisissez les 'Mots' ou les 'Phrases'.")
+    while (choix !== "Mots" && choix !== "Phrases" ) {
+        choix = prompt("Choisissez les 'Mots' ou les 'Phrases'.");
+    }
+    return choix
+}
 
+function lancerBoucleDeJeu (listePropositions){
+        let score = 0
+        for (let i = 0; i < listePropositions.length; i++) {
+            let motUtilisateur = prompt('Entrez le mot : ' + listePropositions[i])
+            if (motUtilisateur === listePropositions[i] ) {
+                score++
+            }
+        }
+        return score
     } 
 
 
+function lancerJeu(){
+    let choix =  choisirPhrasesOuMots();
+    let score = 0
+    let nbMotsProposes =0
+    if(choix === 'Mots'){
+        score = lancerBoucleDeJeu(listeMots)
+          nbMotsProposes = listeMots.length
+    }else {
+       score = lancerBoucleDeJeu(listePhrases)
+          nbMotsProposes = listePhrases.length
+    }
 
-
+  afficherResultat(score, nbMotsProposes)
+}
 
 
 
